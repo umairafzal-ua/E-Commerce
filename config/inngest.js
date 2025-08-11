@@ -53,32 +53,31 @@ export const syncUserDeletion=inngest.createFunction(
         const {id}=event.data
         await connectDB()
         await User.findByIdAndDelete(id)
+
     }
 )
 
 //inngest function to create data Order in database
-export const createUserOrder=inngest.createFunction(
-    {
-        id:'create-user-order',
-        batchEvents:{
-            maxSize:25,
-            timeout:'5s'
-        }
-    },
-    {event:'order/created'},
-    async ({events})=>{
-        const orders=events.map((event)=>{
-            return {
-                userId:event.data.userId,
-                items:event.data.items,
-                amount:event.data.amount,
-                address:event.data.address,
-                date:event.data.date
-            }
-        })
-        await connectDB()
-        await Order.insertMany(orders)
-
-        return {success:true,processed:orders.length}
+export const createUserOrder = inngest.createFunction(
+  {
+    id: 'create-user-order',
+    batchEvents: {
+      maxSize: 5,
+      timeout: '5s'
     }
-)
+  },
+  { event: 'order/created' },
+  async ({ events }) => {
+    // No DB insert here
+    console.log("🔥 Inngest received events:", events);
+
+    // Process orders for notifications, analytics, emails, etc.
+    for (const event of events) {
+      console.log("📦 Processing order:", event.data);
+      // You can send emails, update analytics, trigger shipment, etc.
+    }
+
+    return { success: true, processed: events.length };
+  }
+);
+
