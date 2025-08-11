@@ -13,10 +13,10 @@ const Navbar = () => {
 
   return (
     <nav className="flex items-center justify-between px-6 md:px-16 lg:px-32 py-3 border-b border-gray-300 text-gray-700">
-      <div className="cursor-pointer w-28 md:w-32 flex items-center justify-center md:gap-2">
+     <Link href='/'> <div className="cursor-pointer w-28 md:w-32 flex items-center justify-center md:gap-2">
         <span className="text-orange-600 font-extrabold text-2xl md:text-3xl">E</span>
         <span className="text-xl md:text-2xl "> Commerce</span>
-      </div>
+      </div> </Link>
       <div className="flex items-center gap-4 lg:gap-8 max-md:hidden">
         <Link href="/" className="hover:text-gray-900 transition">
           Home
